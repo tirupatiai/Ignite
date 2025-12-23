@@ -1,0 +1,7 @@
+{
+  "name": "Ignite24x7 - Professional Business Solutions",
+  "description": "A premium landing page for Ignite24x7 offering Software Development, Academy, Digital Marketing, and HR & Recruitment services.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
