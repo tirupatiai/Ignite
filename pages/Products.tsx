@@ -23,7 +23,7 @@ const Products: React.FC = () => {
       desc: 'The ultimate 100% mobile POS for small restaurants. AI-powered insights and full offline support.', 
       platform: 'Android / iOS / Web', 
       icon: <Smartphone className="text-emerald-500" />,
-      link: 'pos.ignite24x7.com',
+      link: 'https://pos.ignite24x7.com',
       isNew: true,
       benefits: [
         'Zero Infrastructure - Runs on any phone',
