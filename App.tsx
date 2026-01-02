@@ -4,11 +4,12 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import SoftwareDevelopment from './pages/SoftwareDevelopment';
 import Products from './pages/Products';
+import ComingSoon from './pages/ComingSoon';
+import SoftwareDevelopment from './pages/SoftwareDevelopment';
 import Academy from './pages/Academy';
-import HRServices from './pages/HRServices';
 import DigitalMarketing from './pages/DigitalMarketing';
+import HRServices from './pages/HRServices';
 import AIAssistant from './components/AIAssistant';
 
 const App: React.FC = () => {
@@ -20,10 +21,10 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/software" element={<SoftwareDevelopment />} />
-            <Route path="/products" element={<Products />} />
             <Route path="/academy" element={<Academy />} />
             <Route path="/marketing" element={<DigitalMarketing />} />
             <Route path="/hr" element={<HRServices />} />
+            <Route path="/products" element={<Products />} />
           </Routes>
         </main>
         <Footer />

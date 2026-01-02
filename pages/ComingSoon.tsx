@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Clock, Construction } from 'lucide-react';
+import { ArrowLeft, Clock, Zap } from 'lucide-react';
 
 interface Props {
   title: string;
@@ -9,43 +9,42 @@ interface Props {
 
 const ComingSoon: React.FC<Props> = ({ title }) => {
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center p-4">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[120px] -z-10"></div>
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-white relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-gradient-to-b from-slate-50 to-transparent -z-10"></div>
       
-      <div className="glass-card p-12 md:p-20 rounded-3xl max-w-2xl w-full text-center border-white/10 shadow-2xl">
-        <div className="w-24 h-24 bg-orange-600/10 rounded-full flex items-center justify-center text-orange-600 mx-auto mb-10">
-          <Clock size={48} />
+      <div className="max-w-3xl w-full text-center">
+        <div className="w-20 h-20 bg-orange-600 rounded-3xl flex items-center justify-center text-white mx-auto mb-12 shadow-2xl shadow-orange-600/30">
+          <Zap size={40} />
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter">
+        <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter leading-none">
           {title} <br />
-          <span className="text-orange-500 underline decoration-orange-500/30 underline-offset-8">Coming Soon</span>
+          <span className="text-orange-500 italic">Coming Soon</span>
         </h1>
         
-        <p className="text-gray-400 text-lg mb-12 leading-relaxed">
-          We're currently building a world-class dedicated experience for our {title} operations. 
-          Stay tuned, we're igniting something incredible!
+        <p className="text-slate-500 text-xl mb-16 leading-relaxed max-w-2xl mx-auto font-medium">
+          We are currently engineering a world-class dedicated platform for our <span className="text-slate-900 font-bold">{title}</span> operations. 
+          Stay tuned as we prepare to ignite a new standard in the industry.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <Link 
             to="/" 
-            className="inline-flex items-center justify-center px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl transition-all border border-white/10"
+            className="w-full sm:w-auto px-10 py-5 bg-slate-900 hover:bg-slate-800 text-white font-black rounded-full transition-all flex items-center justify-center gap-3 uppercase tracking-widest"
           >
-            <ArrowLeft size={18} className="mr-2" /> Back to Home
+            <ArrowLeft size={18} /> Return Home
           </Link>
           <a 
             href="mailto:info@ignite24x7.com" 
-            className="inline-flex items-center justify-center px-8 py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-orange-600/20"
+            className="w-full sm:w-auto px-10 py-5 border border-slate-200 hover:border-orange-500 hover:text-orange-600 text-slate-500 font-black rounded-full transition-all flex items-center justify-center gap-3 uppercase tracking-widest"
           >
-            Notify Me
+            <Clock size={18} /> Notify Me
           </a>
         </div>
       </div>
       
-      <div className="mt-12 flex items-center space-x-2 text-gray-500 animate-pulse">
-        <Construction size={20} />
-        <span className="text-sm font-medium tracking-widest uppercase">Under Construction</span>
+      <div className="mt-24 pt-12 border-t border-slate-50 w-full max-w-xs flex items-center justify-center gap-3 text-slate-400">
+        <span className="text-[10px] font-black uppercase tracking-[0.4em]">Launch Sequence Initiated</span>
       </div>
     </div>
   );

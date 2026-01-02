@@ -4,26 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ignite24x7 | Professional Business Solutions</title>
+    <title>Ignite24x7 | Engineering the Future 24x7</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --ignite-orange: #F97316;
+            --deep-slate: #0F172A;
+            --ghost-gray: #F8FAFC;
+        }
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
+            background-color: #ffffff;
+            color: #0F172A;
+            -webkit-font-smoothing: antialiased;
         }
-        .gradient-text {
-            background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .text-precision {
+            letter-spacing: -0.02em;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .gradient-brand {
+            background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
         }
-        .glow-effect {
-            box-shadow: 0 0 20px rgba(249, 115, 22, 0.2);
+        .pro-shadow {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+        }
+        .pro-shadow-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        .border-subtle {
+            border-color: rgba(15, 23, 42, 0.05);
+        }
+        /* RyvalX-style glass */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(15px);
+        }
+        @keyframes subtle-float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        .float-subtle {
+            animation: subtle-float 6s ease-in-out infinite;
         }
     </style>
 <script type="importmap">
@@ -40,7 +63,7 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-<body class="bg-[#0a0a0b] text-white selection:bg-orange-500/30">
+<body class="selection:bg-orange-500/10">
     <div id="root"></div>
 <script type="module" src="/index.tsx"></script>
 </body>
