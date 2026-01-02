@@ -1,13 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ArrowLeft } from 'lucide-react';
+import { Menu, X, ChevronDown, ArrowLeft, Plus, Minus } from 'lucide-react';
 import { NAV_ITEMS } from '../constants.tsx';
 import Logo from './Logo';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
   const location = useLocation();
 
   // Pages that should have a simplified "Back to Home" navigation
@@ -19,7 +20,14 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => setIsOpen(false), [location.pathname]);
+  useEffect(() => {
+    setIsOpen(false);
+    setExpandedItem(null);
+  }, [location.pathname]);
+
+  const toggleExpand = (label: string) => {
+    setExpandedItem(expandedItem === label ? null : label);
+  };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${scrolled ? 'glass-nav py-3 border-b border-slate-100 shadow-sm' : 'bg-transparent py-6'}`}>
@@ -29,7 +37,7 @@ const Navbar: React.FC = () => {
             <Logo size="md" />
           </Link>
 
-          {/* Nav Links */}
+          {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center space-x-10">
             {isSpecializedPage ? (
               <Link
@@ -43,15 +51,24 @@ const Navbar: React.FC = () => {
               <>
                 {NAV_ITEMS.map((item) => (
                   <div key={item.label} className="group relative">
-                    <Link
-                      to={item.path}
-                      className="text-[13px] font-bold text-slate-600 hover:text-orange-600 uppercase tracking-widest transition-colors flex items-center gap-1.5"
-                    >
-                      {item.label}
-                      {item.children && <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />}
-                    </Link>
+                    {item.children ? (
+                      <button
+                        className="text-[13px] font-bold text-slate-600 hover:text-orange-600 uppercase tracking-widest transition-colors flex items-center gap-1.5 cursor-pointer"
+                      >
+                        {item.label}
+                        <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
+                      </button>
+                    ) : (
+                      <Link
+                        to={item.path}
+                        className="text-[13px] font-bold text-slate-600 hover:text-orange-600 uppercase tracking-widest transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                    
                     {item.children && (
-                      <div className="absolute top-full -left-4 w-56 pt-6 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
+                      <div className="absolute top-full -left-4 w-64 pt-6 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
                         <div className="bg-white border border-slate-100 rounded-xl shadow-2xl overflow-hidden py-3">
                           {item.children.map((child) => (
                             <Link
@@ -77,29 +94,65 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-slate-900">
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-slate-900 p-2">
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
-      <div className={`md:hidden absolute top-full left-0 w-full bg-white transition-all duration-500 overflow-hidden ${isOpen ? 'max-h-screen border-b border-slate-100 shadow-xl' : 'max-h-0'}`}>
-        <div className="p-8 space-y-6">
-          {isSpecializedPage ? (
-            <Link to="/" className="flex items-center gap-2 text-xl font-black text-slate-900">
-              <ArrowLeft size={20} /> HOME
-            </Link>
-          ) : (
-            NAV_ITEMS.map((item) => (
-              <Link key={item.label} to={item.path} className="block text-xl font-black text-slate-900">
-                {item.label}
+      <div className={`md:hidden fixed inset-0 top-[72px] bg-white transition-all duration-500 z-50 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'}`}>
+        <div className="p-8 h-full overflow-y-auto bg-white">
+          <div className="space-y-8">
+            {isSpecializedPage ? (
+              <Link to="/" className="flex items-center gap-3 text-2xl font-black text-slate-900 border-b border-slate-50 pb-6">
+                <ArrowLeft size={24} /> HOME
               </Link>
-            ))
-          )}
-          <Link to="/#contact" className="block w-full text-center bg-orange-600 text-white py-4 rounded-xl font-black">
-            CONTACT US
-          </Link>
+            ) : (
+              NAV_ITEMS.map((item) => (
+                <div key={item.label} className="border-b border-slate-50 pb-6">
+                  {item.children ? (
+                    <div>
+                      <button 
+                        onClick={() => toggleExpand(item.label)}
+                        className="flex items-center justify-between w-full text-2xl font-black text-slate-900 uppercase tracking-tight"
+                      >
+                        {item.label}
+                        {expandedItem === item.label ? <Minus size={20} /> : <Plus size={20} />}
+                      </button>
+                      <div className={`mt-6 space-y-6 transition-all duration-300 overflow-hidden ${expandedItem === item.label ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                        {item.children.map((child) => (
+                          <Link 
+                            key={child.label} 
+                            to={child.path} 
+                            className="block text-lg font-bold text-slate-500 hover:text-orange-600 pl-4 border-l-2 border-slate-100"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link 
+                      to={item.path} 
+                      className="block text-2xl font-black text-slate-900 uppercase tracking-tight"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </div>
+              ))
+            )}
+            <div className="pt-4">
+              <Link 
+                to="/#contact" 
+                onClick={() => setIsOpen(false)}
+                className="block w-full text-center bg-orange-600 text-white py-5 rounded-2xl text-lg font-black uppercase tracking-widest shadow-xl shadow-orange-600/20"
+              >
+                GET IN TOUCH
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
